@@ -8,6 +8,6 @@ class MainTest extends AnyFlatSpec with Matchers {
     val input: String = "Cardiff West, 11014, C, 17803, L, 4923, UKIP, 2069, LD"
     val partyResults: List[PartyResult] = List(PartyResult(11014, "C"))
     val output: ConstituencyResult = ConstituencyResult("Cardiff West", partyResults)
-    Main.extractResults should be ("Earth")
+    Main.extractResults(input) should equal (output)
   }
 }

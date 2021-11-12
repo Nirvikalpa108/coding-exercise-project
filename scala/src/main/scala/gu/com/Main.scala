@@ -24,9 +24,7 @@ package gu.com
 
 case class PartyResult(votes: Int, partyCode: String)
 
-case class ConstiuencyResult(constituencyName: String, results: List[PartyResult])
-
-
+case class ConstituencyResult(constituencyName: String, results: List[PartyResult])
 
 object Main {
   def main(args: Array[String]): Unit = {
@@ -34,5 +32,14 @@ object Main {
   }
   def whereWeLive = "Earth"
 
-  def extractResults(constituancyVotes: String): ConstituencyResult = ???
+  def extractResults(constituencyVotes: String): ConstituencyResult = {
+    //Cardiff West, 11014, C, 17803, L, 4923, UKIP, 2069, LD
+    val list = constituencyVotes.split(', ').toList
+    val constituencyName = list.head
+    val results = list.tail
+
+    results.
+
+
+  }
 }
