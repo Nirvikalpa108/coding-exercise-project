@@ -22,17 +22,17 @@ package gu.com
 //Ind - Independent
 //SNP - SNP
 
-case class PartyResult(partyCode: String, votes: Int)
+case class PartyResult(votes: Int, partyCode: String)
 
 case class ConstiuencyResult(constituencyName: String, results: List[PartyResult])
 
 
-def extractResults(constituancyVotes: String): ConstituencyResult = ???
 
 object Main {
   def main(args: Array[String]): Unit = {
-
+    
   }
-
   def whereWeLive = "Earth"
+
+  def extractResults(constituancyVotes: String): ConstituencyResult = ???
 }
