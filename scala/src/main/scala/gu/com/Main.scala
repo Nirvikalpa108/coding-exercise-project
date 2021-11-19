@@ -34,12 +34,10 @@ object Main {
 
   def extractResults(constituencyVotes: String): ConstituencyResult = {
     //Cardiff West, 11014, C, 17803, L, 4923, UKIP, 2069, LD
-    val list = constituencyVotes.split(', ').toList
+    val list = constituencyVotes.split(", ").toList
     val constituencyName = list.head
     val results = list.tail
-
-    results.
-
-
+    val partyResults: List[PartyResult] = results.grouped(2).toList.map(r => PartyResult(r.head.toInt, r.last))
+    ConstituencyResult(constituencyName, partyResults)
   }
 }
