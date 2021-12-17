@@ -1,67 +1,41 @@
 package gu.com
 
-//A result will consist of:
-//
-//A constituency
-//A repeating set of pairs with the party code and the votes cast
-//So for example:
-//
-//Cardiff West, 11014, C, 17803, L, 4923, UKIP, 2069, LD
-//Islington South & Finsbury, 22547, L, 9389, C, 4829, LD, 3375, UKIP, 3371, G, 309, Ind
-//We want to transform this into a standard result that shows:
-//
-//the constituency name
-//translates the party code into a full name
-//shows the share of the vote as a percentage of all the votes cast
-//Codes
-//C - Conservative Party
-//L - Labour Party
-//UKIP - UKIP
-//LD - Liberal Democrats
-//G - Green Party
-//Ind - Independent
-//SNP - SNP
+//  Calculate the score for a word. The score is the sum of the points for the letters that make up a word.
+//     For example: GUARDIAN = 2 + 1 + 1 + 1 + 2 + 1 + 1 + 1 = 10.
+//  Assign seven tiles chosen randomly from the English alphabet to a player's rack.
+//  In the real game, tiles are taken at random from a 'bag' containing a fixed number of each tile.
+//     Assign seven tiles to a rack using a bag containing the above distribution.
+//  Find a valid word formed from the seven tiles. A list of valid words can be found in dictionary.txt.
+//  Find the longest valid word that can be formed from the seven tiles.
+//  Find the highest scoring word that can be formed.
+//  Find the highest scoring word if any one of the letters can score triple.
+//  For discussion: how would we adapt our solution for a multiplayer environment?
 
-case class PartyResult(votes: Int, partyCode: String)
 
-case class ConstituencyResult(
-    constituencyName: String,
-    results: List[PartyResult]
-)
-
-case class PartyShare(partyCode: String, percentage: Float)
+//Point(s)	Letter(s)
+//1	E, A, I, O, N, R, T, L, S, U
+//2	D, G
+//3	B, C, M, P
+//4	F, H, V, W, Y
+//5	K
+//8	J, X
+//10	Q, Z
 
 object Main {
-  def main(args: Array[String]): Unit = {}
-  def whereWeLive = "Earth"
+  def main(args: Array[String]): Unit = {
 
-  def extractResults(constituencyVotes: String): ConstituencyResult = {
-    //Cardiff West, 11014, C, 17803, L, 4923, UKIP, 2069, LD
-    val list = constituencyVotes.split(", ").toList
-    val constituencyName = list.head
-    val results = list.tail
-    val partyResults: List[PartyResult] =
-      results.grouped(2).toList.map(r => PartyResult(r.head.toInt, r.last))
-    ConstituencyResult(constituencyName, partyResults)
   }
 
-  def convertPartyCode(partyCode: String): String = partyCode match {
-    case "C"    => "Conservative Party"
-    case "L"    => "Labour Party"
-    case "UKIP" => "UKIP"
-    case "LD"   => "Liberal Democrats"
-    case "G"    => "Green Party"
-    case "Ind"  => "Independent"
-    case "SNP"  => "SNP"
-    case _      => "Error"
+  def getPointsForLetter(letter: Char): Int = letter match {
+    case x if List('E', 'A', 'I', 'O', 'N', 'R', 'T', 'L', 'S', 'U').contains(x) => 1
+    case x if List('D', 'G').contains(x) => 2
+    case x if List('B', 'C', 'M', 'P').contains(x) => 3
+    case x if List('F', 'H', 'V', 'W', 'Y').contains(x) => 4
+    case x if List('K').contains(x) => 5
+    case x if List('J', 'X').contains(x) => 8
+    case x if List('Q', 'Z').contains(x) => 10
+    case _ => 0
   }
 
-  def calculatePercentage(partyResults: List[PartyResult]): List[PartyShare] = {
-    // List(PartyResult(25, "C"), PartyResult(75, "L"))
-    val total = partyResults.map(r => r.votes).sum
-    partyResults.map(r => {
-      val percentageCalc = ((r.votes).toFloat / total) * 100
-      PartyShare(r.partyCode, percentageCalc)
-    })
-  }
+  def getPointsForWord(word: String): Int = word.map(getPointsForLetter).sum
 }
