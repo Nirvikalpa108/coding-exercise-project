@@ -1,4 +1,5 @@
 package gu.com
+import scala.util.Random
 
 //  Calculate the score for a word. The score is the sum of the points for the letters that make up a word.
 //     For example: GUARDIAN = 2 + 1 + 1 + 1 + 2 + 1 + 1 + 1 = 10.
@@ -38,4 +39,12 @@ object Main {
   }
 
   def getPointsForWord(word: String): Int = word.map(getPointsForLetter).sum
+
+  def getRandomTiles(): List[Char] = {
+    val alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
+    val random = Random
+    // val z = List.fill(1000)(10000).map(scala.util.Random.nextInt)
+    List.fill(7)(alphabet.length-1).map(alphabet(random.nextInt(alphabet.length - 1)))
+//    val one = alphabet(random.nextInt(alphabet.length))
+  }
 }

@@ -16,5 +16,15 @@ class MainTest extends AnyFlatSpec with Matchers {
     Main.getPointsForWord("GUARDIAN") should equal(10)
   }
 
+  "getRandomTiles" should "produce 7 random tiles" in {
+    val output1 = Main.getRandomTiles()
+    val output2 = Main.getRandomTiles()
+    val output3 = Main.getRandomTiles()
+
+    output1 shouldNot equal(output2)
+    output2 shouldNot equal(output3)
+    output1 shouldNot equal(output3)
+  }
+
 
 }
